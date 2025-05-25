@@ -1,16 +1,21 @@
 import { createClient } from "@supabase/supabase-js"
 import { NextResponse } from "next/server"
 
-// Create a Supabase client with admin privileges using service role key
-const adminSupabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false,
-  },
-})
-
+// Instead of creating the client at the module level, we'll create it inside the handler
 export async function POST(request: Request) {
   try {
+    // Create the admin Supabase client only when the function is called
+    const adminSupabase = createClient(
+      process.env.SUPABASE_URL!, 
+      process.env.SUPABASE_SERVICE_ROLE_KEY!, 
+      {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false,
+        },
+      }
+    )
+
     const { email } = await request.json()
 
     if (!email) {

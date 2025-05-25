@@ -35,9 +35,18 @@ export default function SecurityDashboardPage() {
   const [filter, setFilter] = useState<string>('all')
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [timeRange, setTimeRange] = useState<string>('24h')
+  const [isClient, setIsClient] = useState(false)
   
-  // Load security events
+  // Check if we're on client side
   useEffect(() => {
+    setIsClient(true)
+  }, [])
+  
+  // Load security events only on client-side
+  useEffect(() => {
+    // Skip loading data during SSR/build time
+    if (!isClient) return
+    
     async function loadSecurityEvents() {
       setLoading(true)
       
@@ -99,7 +108,7 @@ export default function SecurityDashboardPage() {
     }
     
     loadSecurityEvents()
-  }, [filter, timeRange, searchTerm])
+  }, [filter, timeRange, searchTerm, isClient])
   
   // Get severity icon
   const getSeverityIcon = (severity: string) => {
@@ -126,6 +135,30 @@ export default function SecurityDashboardPage() {
   // Get event count by severity
   const getEventCountBySeverity = (severity: string) => {
     return events.filter(event => event.severity === severity).length
+  }
+
+  // Show placeholder during build/SSR
+  if (!isClient) {
+    return (
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold">لوحة الأمان</h1>
+        </div>
+        
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[1, 2, 3, 4].map(i => (
+            <Card key={i}>
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium">جاري التحميل...</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">--</div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    )
   }
   
   return (
