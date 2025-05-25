@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "mkdir -p components/layouts && echo '\"use client\"\n\nimport React from \"react\"\nimport { DashboardLayout } from \"@/components/dashboard-layout\"\n\ninterface AdminLayoutProps {\n  children: React.ReactNode;\n}\n\nexport function AdminLayout({ children }: AdminLayoutProps) {\n  return <DashboardLayout>{children}</DashboardLayout>\n}' > components/layouts/admin-layout.tsx && npm run build",
+  "buildCommand": "mkdir -p components/layouts && cp .github/admin-layout.tsx components/layouts/admin-layout.tsx && npm run build",
   "installCommand": "npm install",
   "framework": "nextjs",
   "env": {
