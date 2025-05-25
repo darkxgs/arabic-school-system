@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "mkdir -p components/layouts && echo '\"use client\"; import React from \"react\"; export function DashboardLayout({children}) { return React.createElement(\"div\", {className: \"flex min-h-screen flex-col\"}, children); }' > components/dashboard-layout.tsx && echo '\"use client\"; import React from \"react\"; import {DashboardLayout} from \"@/components/dashboard-layout\"; export function AdminLayout({children}) { return React.createElement(DashboardLayout, null, children); }' > components/layouts/admin-layout.tsx && npm run build",
+  "buildCommand": "chmod +x build-script.sh && ./build-script.sh",
   "installCommand": "npm install",
   "framework": "nextjs",
   "env": {
