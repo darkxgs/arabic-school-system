@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "chmod +x build-script.sh && ./build-script.sh",
+  "buildCommand": "node setup.js && npm run build",
   "installCommand": "npm install",
   "framework": "nextjs",
   "env": {
