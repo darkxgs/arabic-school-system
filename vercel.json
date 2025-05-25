@@ -17,11 +17,5 @@
     "POSTGRES_PASSWORD": "nk0nB5X5qDJXjjnj",
     "POSTGRES_DATABASE": "postgres",
     "POSTGRES_HOST": "db.xceeiogswmfqawlwsaez.supabase.co"
-  },
-  "typescript": {
-    "ignoreBuildErrors": true
-  },
-  "eslint": {
-    "ignoreDuringBuilds": true
   }
 } 
